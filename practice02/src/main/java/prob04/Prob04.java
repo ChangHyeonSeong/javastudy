@@ -11,7 +11,7 @@ public class Prob04 {
 	
 	public static char[] reverse(String str) {
 		/* 코드를 완성합니다 */
-		char ch[] = new char[str.length()];
+		char[] ch = new char[str.length()];
 		for (int i = 0; i < str.length(); i++) {
 			ch[i] = str.charAt(str.length()-1 -i);
 		}
