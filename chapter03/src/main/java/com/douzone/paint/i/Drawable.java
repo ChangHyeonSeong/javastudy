@@ -1,4 +1,4 @@
-package paint;
+package com.douzone.paint.i;
 
 //interface 는 디폴드 접근지시자가 public
 public interface Drawable {
