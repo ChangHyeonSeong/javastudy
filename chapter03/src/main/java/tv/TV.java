@@ -33,7 +33,6 @@ public class TV {
 	
 	public void channel(boolean up) {
 		//// channel(channel + (up ? 1 : -1));          삼항연산자
-		channel(channel + (up ? 1 : -1)); 
 		if(up){
 			if(this.channel == 255) {
 			     this.channel = 1;
