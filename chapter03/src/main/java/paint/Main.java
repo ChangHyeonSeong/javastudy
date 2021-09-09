@@ -16,35 +16,51 @@ public class Main {
         point2.setX(100);
         point2.setY(200);
         ((ColorPoint)point2).setColor("red");  //다운캐스팅
-        drawPoint(point2);
+       // drawPoint(point2);
+        draw(point2);
         
         point2.show(false);
         point2.show(true);
         
         Triangle triangle = new Triangle();
-        drawTriangle(triangle);
+        //drawTriangle(triangle);
+        //drawShape(triangle);
+        draw(triangle);
         
         Rectangle rectangle = new Rectangle();
-        drawRectangle(rectangle);
+        //drawRectangle(rectangle);
+        //drawShape(rectangle);
+	    draw(rectangle);
+	    
+	    Circle circle = new Circle();
+	    //drawCircle(circle);
+	    //drawShape(circle);
+	    draw(circle);
 	}
 	
-	public static void drawPoint(Point point) {
-		point.show();
+	public static void draw(Drawable drawable) {
+		drawable.draw();
 	}
+	
+//	public static void drawPoint(Point point) {
+//		point.show();
+//	}
 //	public static void drawcolorPoint(ColorPoint colorPoint) {
 //		colorPoint.show();
 //	}
 	//코드 중복 발생
 	
-	public static void drawTriangle(Triangle triangle) {
-		triangle.draw();
-	}
-	public static void drawRectangle(Rectangle Rectangle) {
-		Rectangle.draw();
-	}
 	
-	public static void drawCircle(Circle circle) {
-		circle.draw();
-	}
-
+//	public static void drawShape(Shape shape) {
+//		shape.draw();
+//	}
+	
+//	public static void drawRectangle(Rectangle Rectangle) {
+//		Rectangle.draw();
+//	}
+//	
+//	public static void drawCircle(Circle circle) {
+//		circle.draw();
+//	}
+   //코드 중복
 }

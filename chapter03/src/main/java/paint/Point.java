@@ -1,11 +1,13 @@
 package paint;
 
-public class Point {
+public class Point implements Drawable{
        private int x;
        private int y;
-       
+    
+    @Override
     public void draw() {   
-    	System.out.println("점[x=" + this.x + " y=" + this.y + "]");
+    	//System.out.println("점[x=" + this.x + " y=" + this.y + "]");
+    	show();
     }
     
 	public void show() {
