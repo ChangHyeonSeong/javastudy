@@ -7,14 +7,27 @@ public class Main {
         point1.setX(10);
         point1.setY(10);
         
-        //show(point1);
+        //drawPoint(point1);
         //point1.disapear();
         point1.show();
         point1.show(false);
+        
+        Point point2 = new ColorPoint();
+        point2.setX(100);
+        point2.setY(200);
+        ((ColorPoint)point2).setColor("red");  //다운캐스팅
+        drawPoint(point2);
+        
+        point2.show(false);
+        point2.show(true);
 	}
 	
-//	public static void show(Point point) {
-//		point.draw();
+	public static void drawPoint(Point point) {
+		point.show();
+	}
+//	public static void drawcolorPoint(ColorPoint colorPoint) {
+//		colorPoint.show();
 //	}
+	//코드 중복 발생
 
 }
