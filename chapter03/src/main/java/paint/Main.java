@@ -20,6 +20,12 @@ public class Main {
         
         point2.show(false);
         point2.show(true);
+        
+        Triangle triangle = new Triangle();
+        drawTriangle(triangle);
+        
+        Rectangle rectangle = new Rectangle();
+        drawRectangle(rectangle);
 	}
 	
 	public static void drawPoint(Point point) {
@@ -29,5 +35,16 @@ public class Main {
 //		colorPoint.show();
 //	}
 	//코드 중복 발생
+	
+	public static void drawTriangle(Triangle triangle) {
+		triangle.draw();
+	}
+	public static void drawRectangle(Rectangle Rectangle) {
+		Rectangle.draw();
+	}
+	
+	public static void drawCircle(Circle circle) {
+		circle.draw();
+	}
 
 }
