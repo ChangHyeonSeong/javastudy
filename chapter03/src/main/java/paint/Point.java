@@ -4,6 +4,14 @@ public class Point implements Drawable{
        private int x;
        private int y;
     
+     public Point() {
+    	 
+     }
+     public Point(int x, int y) {
+    	 this.x = x;
+    	 this.y = x;
+     }
+       
     @Override
     public void draw() {   
     	//System.out.println("점[x=" + this.x + " y=" + this.y + "]");
