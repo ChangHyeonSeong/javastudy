@@ -1,5 +1,7 @@
 package collection;
 
+import java.util.Objects;
+
 public class Gugudan {
       private int left;
       private int right;
@@ -11,7 +13,22 @@ public class Gugudan {
 
 	@Override
 	public String toString() {
-		return "Gugudan " + "[left=" +getLeft()  +", right=" + getRight() + "]" ;
+		return "Gugudan " + "[left=" +left +", right=" + right + "]" ;
+	}
+
+//	@Override
+//	public int hashCode() {
+//		final int PRIME = 31;
+//		Integer left = this.left;
+//		Integer right = this.right;
+//		int result =1;
+//		result =PRIME *result +  left.hashCode() * right.hashCode();
+//		return  result;
+//	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(left*right);
 	}
 
 	@Override
@@ -25,22 +42,5 @@ public class Gugudan {
 		Gugudan other = (Gugudan) obj;
 		return left * right == other.left * other.right;
 	}
-
-	public int getLeft() {
-		return left;
-	}
-
-	public void setLeft(int left) {
-		this.left = left;
-	}
-
-	public int getRight() {
-		return right;
-	}
-
-	public void setRight(int right) {
-		this.right = right;
-	}
-      
       
 }
