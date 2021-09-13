@@ -16,7 +16,7 @@ public class MyStack {
 	public void push(String string) {
 		if(buffer.length == top) {
 			String[] tempBuffer = new String[buffer.length+1];
-			for (int i = 0; i < buffer.length ; i++) {
+			for (int i = 0; i < tempBuffer.length ; i++) {
 				tempBuffer[i] = new String(buffer[i]);
 			}
 			tempBuffer[buffer.length] = new String(string);
@@ -36,11 +36,17 @@ public class MyStack {
 		}
 		else {
 			str = buffer[top-1];
+			
+			String[] tempBuffer = new String[buffer.length-1];
+			for (int i = 0; i < tempBuffer.length ; i++) {
+				tempBuffer[i] = new String(buffer[i]);
+			}
+			buffer = tempBuffer;
+			
 			top--;
 		}
 		return str;
 	}
-	
 	
 	public boolean isEmpty() {
 		boolean empty = false;
