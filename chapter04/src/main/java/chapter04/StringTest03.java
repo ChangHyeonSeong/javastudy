@@ -25,7 +25,36 @@ public class StringTest03 {
 		}
 		String s3 = sb2.toString();
 		System.out.println(s3.length());
-
+		
+		//String method들...
+		String s4 = "aBcABCabcAbc";
+		System.out.println(s4.length());
+		System.out.println(s4.charAt(2));
+		System.out.println(s4.indexOf("abc"));
+		System.out.println(s4.indexOf("abc",7)); //7인덱스부터 찾음 없으면 -1 return
+        System.out.println(s4.substring(3));
+        System.out.println(s4.substring(3,5));//3~4까지 반환
+        
+        String s5 = "     ab     cd      ";
+        String s6 = "efg,hij,klm,nop,qrs";
+        
+        String s7 = s5.concat(s6);
+        System.out.println(s7);
+        
+        System.out.println("-------" + s5.trim() +"--------");
+        //trim() 사용예 ->로그인시 스페이스 입력으로인한 공백문자 삽입제거
+        
+        System.out.println("-------" +s5.replace(" ", "")+"--------");
+        
+        String[] tokens = s6.split(",");
+        for(String s : tokens) {
+        	System.out.println(s);
+        }
+        
+        String[] tokens2 = s6.split(" ");
+        for(String s : tokens2) {
+        	System.out.println(s);
+        }
 	}
 
 }
