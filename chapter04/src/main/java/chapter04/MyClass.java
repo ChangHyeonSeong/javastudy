@@ -1,5 +1,7 @@
 package chapter04;
-
+/*
+ * Singleton패턴
+ */
 public class MyClass {
 	 private static MyClass instance = null;
      private MyClass() {
