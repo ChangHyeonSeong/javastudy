@@ -1,9 +1,16 @@
 package prob5;
-
+/*
+ * 성창현
+ * 배열을 사용한 스택 구현
+ * 210913
+ * push() 에 버퍼배열 크기를 조절함 -> 함수는 한번에 한가지 일을해야하므로
+ *                                                resize()함수를 만들어서 일을 나눈다
+ * */
 public class MyStack {
     
 	private String[] buffer;
 	private int top;
+	
 	public MyStack() {
 		this.buffer = null;
 		this.top = 0;
