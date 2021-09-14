@@ -32,10 +32,22 @@ public class LoginMain {
 			return;
 		} finally {
 			scanner.close();
-		}
+	 	}
 	}
 	
-	public static void login(List<User> users, User user ){
+	public static void login(List<User> users, User user )
+			                        throws UserNotFoundException, 
+	                                       PasswordDismatchException{
 		/* 코드 작성 */
+		for(User listuser : users) {
+			if(!listuser.equals(user)) {
+				 throw new UserNotFoundException();
+			}
+			if(!listuser.getPassword().equals(user.getPassword())) {
+				 throw new PasswordDismatchException();
+			}
+		}
+		
+		 
 	}
 }

@@ -15,7 +15,8 @@ public class Prob04 {
 		person1.selfIntroduce();
 		person2.selfIntroduce();
 		person3.selfIntroduce();
+		
 	}
-
+    
 }
 
