@@ -24,9 +24,14 @@ public class EchoClient {
 			socket = new Socket();
 
 			// 2.서버 연결
-
 			socket.connect(new InetSocketAddress(SERVER_IP, SERVER_PORT));
             log("connected");
+//            System.out.println(socket.getLocalPort());
+//            System.out.println(socket.getPort());
+//            System.out.println(socket.getInetAddress());
+//            System.out.println(socket.getLocalAddress());
+//            System.out.println(socket.getLocalSocketAddress());
+            
             
             BufferedReader bReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
 			PrintWriter pWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
