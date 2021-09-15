@@ -26,6 +26,12 @@ public class EchoServer {
 			
 			Socket socket = serverSocket.accept();//blocking
 			
+			InetSocketAddress inetRemoteSocketAddress = (InetSocketAddress)socket.getRemoteSocketAddress();
+			String remoteHostAddress = inetRemoteSocketAddress.getAddress().getHostAddress();
+			int remoteHostPort = inetRemoteSocketAddress.getPort();
+			System.out.println("[server] connected by client[" + remoteHostAddress + ":" +remoteHostPort + "]");
+			
+			
 			try {
 				BufferedReader bReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
 				PrintWriter pWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);// true로
@@ -68,6 +74,6 @@ public class EchoServer {
 	}
 	
 	public static void log(String log) {
-		System.out.println("[EchoServer]" + log);
+		System.out.println("[Echo Server]" + log);
 	}
 }
