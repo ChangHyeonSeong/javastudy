@@ -11,6 +11,7 @@ import java.nio.file.Files;
 
 public class RequestHandler extends Thread {
 	private static final String DOCUMENT_ROOT = "./webapp";
+	//private static final String DOCUMENT_ERROR = "./webapp/error";
 	private Socket socket;
 	
 	public RequestHandler( Socket socket ) {
@@ -35,6 +36,7 @@ public class RequestHandler extends Thread {
 				
 				//브라우저가 연결을 끊으면, 
 				if(line == null) {
+					consoleLog("closed by Client");
 					break;
 				}
 				
@@ -60,12 +62,14 @@ public class RequestHandler extends Thread {
 			}else {
 				//methods: POST, PUT, DELETE, HEAD, CONNECT
 				//SimpleHttpServer 에서는 무시(400 Bad Request 처리)
-				//response400Error(outputStream, tokens[1],tokens[2]);
+				response400Error(outputStream, tokens[1],tokens[2]);
 			}
 			
 			// 예제 응답입니다.
 			// 서버 시작과 테스트를 마친 후, 주석 처리 합니다.
 //			outputStream.write( "HTTP/1.1 200 OK\n".getBytes( "UTF-8" ) );
+			//                            400 Bad Request
+			//                            404 Not Found
 //			outputStream.write( "Content-Type:text/html; charset=utf-8\r\n".getBytes( "UTF-8" ) );
 //			outputStream.write( "\n".getBytes() );
 //			outputStream.write( "<h1>이 페이지가 잘 보이면 실습과제 SimpleHttpServer를 시작할 준비가 된 것입니다.</h1>".getBytes( "UTF-8" ) );
@@ -85,6 +89,43 @@ public class RequestHandler extends Thread {
 		}			
 	}
 
+	public void response400Error(OutputStream outputStream, String url, String protocol)throws IOException {
+		        //400 file set
+		        url = "/error/400.html";
+				
+				File file = new File(DOCUMENT_ROOT + url);
+				if(!file.exists()) {
+					return;
+				}
+				//nio
+				byte[] body= Files.readAllBytes(file.toPath());
+				String contentType = Files.probeContentType(file.toPath());
+				
+				outputStream.write((protocol + " 400 Bad Request\n").getBytes("UTF-8"));
+				outputStream.write(("Content-Type:" + contentType +"; charset=utf-8\r\n").getBytes("UTF-8"));
+				outputStream.write("\n".getBytes());
+				outputStream.write(body);
+	}
+	
+	public void response404Error(OutputStream outputStream, String url, String protocol)throws IOException {
+		        //404 file set
+				url = "/error/404.html";
+				
+				File file = new File(DOCUMENT_ROOT + url);
+				if(!file.exists()) {
+					return;
+				}
+				//nio
+				byte[] body= Files.readAllBytes(file.toPath());
+				String contentType = Files.probeContentType(file.toPath());
+				
+				outputStream.write((protocol + " 404 Not Found\n").getBytes("UTF-8"));
+				outputStream.write(("Content-Type:" + contentType +"; charset=utf-8\r\n").getBytes("UTF-8"));
+				outputStream.write("\n".getBytes());
+				outputStream.write(body);
+		
+	}
+
 	private void reponseStaticResource(
 			OutputStream outputStream, 
 			String url, 
@@ -97,7 +138,7 @@ public class RequestHandler extends Thread {
 		
 		File file = new File(DOCUMENT_ROOT + url);
 		if(!file.exists()) {
-			//response400Error(outputStream, url,protocal);
+			response404Error(outputStream, url,protocol);
 			return;
 		}
 		//nio
