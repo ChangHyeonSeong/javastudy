@@ -9,13 +9,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class RunnableServerImpl implements Runnable {
-	private ServerSocket Ssocket;
 	private Socket socket;
 	private BufferedReader bReader;
 	private PrintWriter pWriter;
-	public RunnableServerImpl(ServerSocket Ssocket){
-		this.Ssocket = Ssocket;
-		
+	public RunnableServerImpl(Socket socket){
+		this.socket = socket;
+		IOpipeConnect("UTF-8");
 	}
 	public void IOpipeConnect(String encode) {
 		try {
@@ -28,13 +27,6 @@ public class RunnableServerImpl implements Runnable {
 	}
 	@Override
 	public void run() {
-		try {
-			socket = Ssocket.accept();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		IOpipeConnect("UTF-8");
 		try {
 			while (true) {
 				String data = bReader.readLine();

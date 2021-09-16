@@ -20,9 +20,9 @@ public class MutiThreadServer {
 			serverSocket.bind(new InetSocketAddress("0.0.0.0", PORT));
 			log("starts... [port:" + PORT + "]");
 			while (true) {
-				//Socket socket = serverSocket.accept();// blocking
+				Socket socket = serverSocket.accept();// blocking
 
-				Thread thread = new Thread(new RunnableServerImpl(serverSocket));
+				Thread thread = new Thread(new RunnableServerImpl(socket));
 
 				thread.start();
 			}
