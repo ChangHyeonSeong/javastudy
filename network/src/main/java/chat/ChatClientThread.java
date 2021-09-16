@@ -11,32 +11,32 @@ import java.io.Reader;
  * */
 public class ChatClientThread extends Thread {
 	private Reader reader;
-	private boolean flag;
+	private boolean exitState;
     public ChatClientThread(Reader reader) {
     	this.reader = reader;
-    	flag = true;
+    	exitState = true;
     }
     
-	public boolean isFlag() {
-		return flag;
+	public boolean isExitState() {
+		return exitState;
 	}
 
-	public void setFlag(boolean flag) {
-		this.flag = flag;
+	public void stopThread() {
+		exitState = false;
 	}
 
 	@Override
 	public void run() {
 		BufferedReader bReader =(BufferedReader)reader;
-		while(flag) {
+		while(exitState) {
 			
 			try {
 				String response = bReader.readLine();
 				String[] tokens = response.split(":");
 				
 				if(tokens[0].equals("MESSAGE")) {
-					//System.out.print(">>");
-					System.out.println(tokens[1]);
+					//System.out.println();
+					System.out.println(tokens[1] +":" +tokens[2]);
 				}
 				
 			} catch (IOException e) {

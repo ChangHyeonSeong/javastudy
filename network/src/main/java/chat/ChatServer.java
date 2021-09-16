@@ -31,12 +31,14 @@ public class ChatServer {
 					// IPAddress : 0.0.0.0 특정 호스트 IP바인딩 하지 않는다.-> 모든 IP로 부터의 연결을 허용
 					serverSocket.bind(new InetSocketAddress("0.0.0.0", PORT));
 					consoleLog("starts... [port:" + PORT + "]");
-
+					
+                    //accept()
 					while (true) {
 						Socket socket = serverSocket.accept();// blocking
 						
 						new ChatServerThread(socket, pwList).start();
 					}
+					
 				} catch (SocketException e) {
 					consoleLog("error : "+e);	
 				} catch (IOException e) {

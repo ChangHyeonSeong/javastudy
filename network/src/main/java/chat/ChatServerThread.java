@@ -33,7 +33,7 @@ public class ChatServerThread extends Thread {
 			while (true) {
 				String request = bReader.readLine();
 				if (request == null) {
-					consoleLog( nickname+"로 부터 연결 끊김" );
+					consoleLog( nickname+" 으로 부터 연결 끊김" );
 				    doQuit();
 					break;
 				}
@@ -44,7 +44,9 @@ public class ChatServerThread extends Thread {
 				    	doJoin( tokens[1], pWriter );
 					    break;
 				    case "MESSAGE":
-				    	doMessage( tokens[1] );
+				    	if(tokens.length >= 2) {
+				    	    doMessage( tokens[1]);
+				    	}
 					    break;
                     case "quit":
                     	doQuit();
@@ -75,7 +77,7 @@ public class ChatServerThread extends Thread {
 	public void doJoin(String nickname, PrintWriter pWriter) {
 		this.nickname = nickname;
 		synchronized (pwList) {
-			String data = "MESSAGE:"+nickname +"님이 참여하였습니다.";
+			String data = "MESSAGE:"+nickname +":님이 참여하였습니다.";
 			broadcast( data );
 			pWriter.println("JOIN:OK");
 			addWriter( pWriter );
@@ -85,11 +87,12 @@ public class ChatServerThread extends Thread {
 	}
 
 	public void doMessage(String message) {
-		broadcast( "MESSAGE:"+message );
+		broadcast( "MESSAGE:"+nickname +":" + message );
 	}
 
 	public void doQuit() {
-		broadcast( "MESSAGE:"+nickname+"님이 퇴장 하였습니다.");
+		broadcast( "MESSAGE:"+nickname+":님이 퇴장 하였습니다.");
+		consoleLog(nickname + " 접속 종료");
 	}
 	
 	public void broadcast(String data) {
@@ -108,7 +111,7 @@ public class ChatServerThread extends Thread {
 	}
 
 	public void consoleLog( String message ) {
-		System.out.println( "[SeverThread#" + getId() + "] " + message );
+		System.out.println( "[SeverThread#" + getId() + "-" +nickname + "] " + message );
 	}
 	
 
