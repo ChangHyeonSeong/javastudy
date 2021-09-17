@@ -48,7 +48,7 @@ public class ChatClient {
 			if (tokens[0].equals("JOIN")) {
 				if (tokens[1].equals("OK")) {
 					System.out.println("채팅방에 입장하였습니다.");
-					cThread = new ChatClientThread(bReader);
+					cThread = new ChatClientThread(socket);
 					cThread.start();
 				}
 			} else {
@@ -58,16 +58,16 @@ public class ChatClient {
 
 			// 키보드로 입력받은 메시지 전송
 			while (true) {
-				//System.out.print(">>");
+				
 				String input = scanner.nextLine();
-				//System.out.println("키보드입력" + input);
-
+				
 				if ("quit".equals(input) == true) {
 					pWriter.println(input + ":");
-					cThread.stopThread();;
+					cThread.stopThread();
 					break;
 				}
-				if(input != "") {
+				
+				if(input != "") {	
 				    pWriter.println("MESSAGE:"  + input + ":");
 				}
 			}
@@ -77,6 +77,7 @@ public class ChatClient {
 		} catch (IOException e) {
 			consoleLog("error:" + e);
 		} finally {
+			System.exit(0);
 			try {
 				if (scanner != null) {
 					scanner.close();
@@ -85,8 +86,9 @@ public class ChatClient {
 					socket.close();
 				}
 				if(cThread != null ) {
-					cThread.stopThread();;
+					cThread.stopThread();
 				}
+				System.out.println("finally 정상 종료");
 
 			} catch (IOException e) {
 				consoleLog("error:" + e);

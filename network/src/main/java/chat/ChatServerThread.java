@@ -26,11 +26,14 @@ public class ChatServerThread extends Thread {
 	
 	@Override
 	public void run() {
+		BufferedReader bReader = null;
+		PrintWriter pWriter = null;
 		try {
-			BufferedReader bReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
-			PrintWriter pWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
+			bReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+			pWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
 			
 			while (true) {
+				
 				String request = bReader.readLine();
 				if (request == null) {
 					consoleLog( nickname+" 으로 부터 연결 끊김" );
@@ -45,15 +48,16 @@ public class ChatServerThread extends Thread {
 					    break;
 				    case "MESSAGE":
 				    	if(tokens.length >= 2) {
+				    		if(tokens[1].equals("q")) {
+				    			socket.close();
+				    			return;
+				    		}
 				    	    doMessage( tokens[1]);
 				    	}
 					    break;
                     case "quit":
                     	doQuit();
                     	return;
-//                    case "QUIT":
-//                    	
-//					    break;
 				    default:
 				    	consoleLog("에러:알수 없는 요청(" + tokens[0] + ")" );
 					    break;
@@ -64,6 +68,9 @@ public class ChatServerThread extends Thread {
 		}finally {
 			try {
 				if (socket != null && socket.isClosed() == false) {
+					if(pWriter != null) {
+					    pWriter.println("");
+					}
 					socket.close();
 					//consoleLog("정상 종료");
 				}
