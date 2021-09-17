@@ -77,7 +77,7 @@ public class ChatClient {
 		} catch (IOException e) {
 			consoleLog("error:" + e);
 		} finally {
-			System.exit(0);
+			
 			try {
 				if (scanner != null) {
 					scanner.close();
@@ -88,7 +88,8 @@ public class ChatClient {
 				if(cThread != null ) {
 					cThread.stopThread();
 				}
-				System.out.println("finally 정상 종료");
+				
+				consoleLog("main finally 정상 종료");
 
 			} catch (IOException e) {
 				consoleLog("error:" + e);

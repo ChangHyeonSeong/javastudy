@@ -37,7 +37,7 @@ public class ChatServerThread extends Thread {
 				String request = bReader.readLine();
 				if (request == null) {
 					consoleLog( nickname+" 으로 부터 연결 끊김" );
-				    doQuit();
+				    doQuit(pWriter);
 					break;
 				}
 				String[] tokens = request.split(":");
@@ -56,7 +56,7 @@ public class ChatServerThread extends Thread {
 				    	}
 					    break;
                     case "quit":
-                    	doQuit();
+                    	doQuit(pWriter);
                     	return;
 				    default:
 				    	consoleLog("에러:알수 없는 요청(" + tokens[0] + ")" );
@@ -97,11 +97,20 @@ public class ChatServerThread extends Thread {
 		broadcast( "MESSAGE:"+nickname +":" + message );
 	}
 
-	public void doQuit() {
+	public void doQuit(Writer pWriter) {
 		broadcast( "MESSAGE:"+nickname+":님이 퇴장 하였습니다.");
+		removeWriter(pWriter);
 		consoleLog(nickname + " 접속 종료");
 	}
 	
+	
+	
+	public void removeWriter(Writer pWriter) {
+		synchronized(pwList) {
+			pwList.remove(pWriter);
+		}
+	}
+
 	public void broadcast(String data) {
 		synchronized (pwList) {
 			for (Writer writer : pwList) {
