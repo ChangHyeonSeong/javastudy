@@ -11,6 +11,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Reader;
+import java.net.Socket;
 
 import com.sun.glass.events.WindowEvent;
 
@@ -22,8 +29,10 @@ public class ChatWindow {
 	private Button buttonSend;
 	private TextField textField;
 	private TextArea textArea;
+	private Socket socket;
 
-	public ChatWindow(String name) {
+	public ChatWindow(Socket socket, String name) {
+		this.socket = socket;
 		frame = new Frame(name);
 		pannel = new Panel();
 		buttonSend = new Button("Send");
@@ -44,7 +53,6 @@ public class ChatWindow {
 		buttonSend.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed( ActionEvent actionEvent ) {
-				System.out.println("click");
 				sendMessage();
 			}
 		});
@@ -89,13 +97,22 @@ public class ChatWindow {
 		frame.setVisible(true);
 		frame.pack();
 		
-		/*
-		 * 2.IOStream 가져오기
-		 * */
-		
-		/*
-		 * 3. Chat Client Thread 생성
-		 * */
+		try {
+			/*
+			 * 2.IOStream 가져오기
+			 */
+			BufferedReader bReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+			PrintWriter pWriter = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
+
+			/*
+			 * 3. Chat Client Thread 생성
+			 */
+			new ChatClientThread(bReader);
+			
+			
+		} catch (IOException e) {
+			ChatClientApp.consoleLog("error : "+ e);
+		} 
 	}
 	
 	private void sendMessage() {
@@ -116,11 +133,36 @@ public class ChatWindow {
 	
 	private void finish() {
 	    System.out.println("소켓 닫기 or 방나가기 프로토콜 구현");
+	    try {
+			socket.close();
+		} catch (IOException e) {
+			ChatClientApp.consoleLog("Thread error : "+ e);
+		}
 	    System.exit(0);
 	}
-	private class ChatcClientthread extends Thread{
+	private class ChatClientThread extends Thread{
+		Reader Reader;
+		public ChatClientThread(Reader Reader) {
+			this.Reader = Reader;
+		}
+
+		@Override
 		public void run() {
-			updateTextArea("...........");
+			try {
+				while (true) {
+					String response = ((BufferedReader) Reader).readLine();
+					if (response.isEmpty() == true) {
+						break;
+					}
+					String[] tokens = response.split(":");
+
+					if (tokens[0].equals("MESSAGE")) {
+						updateTextArea(tokens[1] + ":" + tokens[2]);
+					}
+				}
+			} catch (IOException e) {
+				ChatClientApp.consoleLog("Thread error : "+ e);
+			}
 		}
 	}
 }
