@@ -16,7 +16,7 @@ import java.util.Scanner;
  * chatting client impl
  * */
 public class ChatClient {
-	private static final String SERVER_IP = "115.22.10.134";
+	private static final String SERVER_IP = "127.0.0.1";
 	private static final int SERVER_PORT = 8080;
 
 	public static void main(String[] args) {
