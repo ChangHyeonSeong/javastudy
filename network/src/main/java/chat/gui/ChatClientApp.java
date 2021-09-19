@@ -14,7 +14,7 @@ import java.util.Set;
 import chat.ChatClientThread;
 
 public class ChatClientApp {
-	private static final String SERVER_IP = "115.22.10.134";
+	private static final String SERVER_IP = "127.0.0.1";
 	private static final int SERVER_PORT = 8080;
 	
 	public static void main(String[] args) {
@@ -40,7 +40,7 @@ public class ChatClientApp {
 		
 		
 		try {
-			//1. creat socket
+			//1. create socket
 			socket = new Socket();
 			
 			//2. connect to server
@@ -66,15 +66,6 @@ public class ChatClientApp {
 			consoleLog("suddenly closed by server : "+e);	
 		} catch (IOException e) {
 			consoleLog("error:" + e);
-		}finally {
-			try {
-				if (socket != null && socket.isClosed() == false) {
-					socket.close();
-				}
-				consoleLog("Main finally 정상 종료");
-			} catch (IOException e) {
-				consoleLog("error:" + e);
-			}
 		}
 
 	}
