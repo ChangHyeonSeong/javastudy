@@ -41,7 +41,6 @@ public class ChatClientThread extends Thread {
 					String[] tokens = response.split(":");
 
 					if (tokens[0].equals("MESSAGE")) {
-						// System.out.println();
 						System.out.println(tokens[1] + ":" + tokens[2]);
 					}
 				}
@@ -58,8 +57,6 @@ public class ChatClientThread extends Thread {
 					socket.close();
 				}
 				ChatClient.consoleLog("Thread finally 정상 종료");
-				
-
 			} catch (IOException e) {
 				ChatClient.consoleLog("Thread error:" + e);
 			}
