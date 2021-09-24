@@ -48,10 +48,6 @@ public class ChatServerThread extends Thread {
 					    break;
 				    case "MESSAGE":
 				    	if(tokens.length >= 2) {
-				    		if(tokens[1].equals("q")) {
-				    			socket.close();
-				    			return;
-				    		}
 				    	    doMessage( tokens[1]);
 				    	}
 					    break;
