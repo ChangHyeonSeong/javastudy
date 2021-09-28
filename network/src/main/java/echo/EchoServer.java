@@ -13,7 +13,7 @@ import java.net.SocketException;
  * echoserver mutithread impl
  * */
 public class EchoServer {
-    private static final int PORT = 6000;
+    private static final int PORT = 8000;
 	public static void main(String[] args) {
 		ServerSocket serverSocket = null;
 		
